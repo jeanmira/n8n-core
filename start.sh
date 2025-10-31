@@ -12,7 +12,7 @@ echo ""
 
 # Check if .env exists
 if [ ! -f .env ]; then
-    echo "❌ Arquivo .env não encontrado!"
+    echo "[ERRO] Arquivo .env não encontrado!"
     echo "Execute primeiro: ./setup.sh"
     exit 1
 fi
@@ -21,7 +21,7 @@ fi
 docker-compose up -d
 
 echo ""
-echo "✓ n8n iniciado com sucesso!"
+echo "[OK] n8n iniciado com sucesso!"
 echo ""
 echo "Acesse: http://localhost:5678"
 echo ""

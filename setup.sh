@@ -14,87 +14,87 @@ echo ""
 
 # Check if Docker is installed
 if ! command -v docker &> /dev/null; then
-    echo "❌ Docker não está instalado!"
+    echo "[ERRO] Docker não está instalado!"
     echo "Instale com: https://docs.docker.com/get-docker/"
     exit 1
 fi
 
 # Check if Docker Compose is installed
 if ! command -v docker-compose &> /dev/null; then
-    echo "❌ Docker Compose não está instalado!"
+    echo "[ERRO] Docker Compose não está instalado!"
     echo "Instale com: https://docs.docker.com/compose/install/"
     exit 1
 fi
 
-echo "✓ Docker instalado"
-echo "✓ Docker Compose instalado"
+echo "[OK] Docker instalado"
+echo "[OK] Docker Compose instalado"
 echo ""
 
 # Check if .env exists
 if [ ! -f .env ]; then
-    echo "📝 Criando arquivo .env..."
+    echo "Criando arquivo .env..."
     cp .env.example .env
-    echo "✓ Arquivo .env criado"
+    echo "[OK] Arquivo .env criado"
     echo ""
-    echo "⚠️  IMPORTANTE: Edite o .env e configure:"
+    echo "[IMPORTANTE] Edite o .env e configure:"
     echo "   - Senhas de banco de dados"
     echo "   - Senha de autenticação"
     echo "   - Encryption key (gere com: openssl rand -base64 32)"
     echo ""
 else
-    echo "✓ Arquivo .env já existe"
+    echo "[OK] Arquivo .env já existe"
     echo ""
 fi
 
 # Check if encryption key is set
 if ! grep -q "N8N_ENCRYPTION_KEY=.\+" .env; then
-    echo "⚠️  Encryption key não configurada!"
+    echo "[AVISO] Encryption key não configurada!"
     echo "Gerando encryption key..."
     ENCRYPTION_KEY=$(openssl rand -base64 32)
 
     # Update .env with encryption key
     if grep -q "N8N_ENCRYPTION_KEY=$" .env; then
         sed -i "s|N8N_ENCRYPTION_KEY=|N8N_ENCRYPTION_KEY=${ENCRYPTION_KEY}|" .env
-        echo "✓ Encryption key gerada e configurada"
+        echo "[OK] Encryption key gerada e configurada"
     else
         echo "# Generated encryption key" >> .env
         echo "N8N_ENCRYPTION_KEY=${ENCRYPTION_KEY}" >> .env
-        echo "✓ Encryption key gerada e adicionada ao .env"
+        echo "[OK] Encryption key gerada e adicionada ao .env"
     fi
     echo ""
 fi
 
 # Install npm dependencies for custom nodes
 if [ -d "custom-nodes" ] && [ -f "custom-nodes/package.json" ]; then
-    echo "📦 Instalando dependências dos custom nodes..."
+    echo "Instalando dependências dos custom nodes..."
     cd custom-nodes
     npm install
-    echo "✓ Dependências instaladas"
+    echo "[OK] Dependências instaladas"
     cd ..
     echo ""
 fi
 
 # Install root npm dependencies
 if [ -f "package.json" ]; then
-    echo "📦 Instalando dependências do projeto..."
+    echo "Instalando dependências do projeto..."
     npm install
-    echo "✓ Dependências instaladas"
+    echo "[OK] Dependências instaladas"
     echo ""
 fi
 
 # Create necessary directories
-echo "📁 Criando diretórios necessários..."
+echo "Criando diretórios necessários..."
 mkdir -p workflows/private
 mkdir -p backups
-echo "✓ Diretórios criados"
+echo "[OK] Diretórios criados"
 echo ""
 
 # Build custom nodes
 if [ -d "custom-nodes" ]; then
-    echo "🔨 Compilando custom nodes..."
+    echo "Compilando custom nodes..."
     cd custom-nodes
     npm run build
-    echo "✓ Custom nodes compilados"
+    echo "[OK] Custom nodes compilados"
     cd ..
     echo ""
 fi

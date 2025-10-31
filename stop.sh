@@ -11,5 +11,5 @@ echo "Parando n8n..."
 docker-compose down
 
 echo ""
-echo "✓ n8n parado com sucesso!"
+echo "[OK] n8n parado com sucesso!"
 echo ""
