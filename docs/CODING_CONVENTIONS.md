@@ -2,102 +2,122 @@
 
 ## Language Standards
 
-### Code: ALWAYS English
-All code must be written in English:
+### Code: Portuguese or English (Your Choice)
+Você pode escrever código em **português** ou **inglês**, como preferir:
 
 ```typescript
-// ✅ CORRECT - English
-function validateEmail(email: string): boolean {
-  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-  return emailRegex.test(email);
-}
-
-// ❌ WRONG - Portuguese
+// ✅ OK - Português
 function validarEmail(email: string): boolean {
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
   return emailRegex.test(email);
 }
+
+// ✅ OK - English
+function validateEmail(email: string): boolean {
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  return emailRegex.test(email);
+}
 ```
 
+**Recomendações:**
+- **Português**: Mais natural se você trabalha sozinho ou com time brasileiro
+- **Inglês**: Melhor para projetos open source ou times internacionais
+- **Consistência**: Escolha um idioma e mantenha em todo o projeto
+
 **Applies to:**
-- Variable names
-- Function names
-- Class names
-- Interface names
-- Type names
-- File names
-- Comments in code
-- Commit messages
-- Branch names
+- Variable names (nomes de variáveis)
+- Function names (nomes de funções)
+- Class names (nomes de classes)
+- Interface names (nomes de interfaces)
+- Type names (nomes de tipos)
+- File names (nomes de arquivos)
+- Comments in code (comentários)
 
-### Documentation: Portuguese OK
-Documentation can be in Portuguese:
-- README.md sections
-- ARCHITECTURE.md explanations
-- User-facing documentation
-- Workflow documentation (.doc.md files)
+### Commit Messages: Your Choice
+```bash
+# ✅ OK - Português
+git commit -m "feat: adiciona validação de email"
+git commit -m "fix: corrige tratamento de timeout"
 
-But technical documentation should prefer English for wider audience.
+# ✅ OK - English
+git commit -m "feat: add email validation"
+git commit -m "fix: correct timeout handling"
+```
+
+### Documentation: Portuguese or English
+Documentação pode ser em português ou inglês:
+- README.md
+- ARCHITECTURE.md
+- Workflow documentation (.doc.md)
+- Comments
 
 ## Naming Conventions
 
-### Files
+### Files (Português ou Inglês)
 ```
+✅ ValidarDados.json
+✅ EnviarEmailNotificacao.json
 ✅ ValidateData.json
 ✅ SendEmailNotification.json
-✅ ExampleNode.node.ts
-✅ UserService.ts
-
-❌ ValidarDados.json
-❌ EnviarEmailNotificacao.json
 ```
 
-### Functions and Variables
+### Functions and Variables (Português ou Inglês)
 ```typescript
-// ✅ CORRECT
+// ✅ OK - Português
+const nomeUsuario: string;
+function buscarUsuarioPorId(id: string): Usuario;
+class ServicoEmail { }
+interface IRepositorioUsuario { }
+
+// ✅ OK - English
 const userName: string;
 function getUserById(id: string): User;
 class EmailService { }
 interface IUserRepository { }
-
-// ❌ WRONG
-const nomeUsuario: string;
-function buscarUsuarioPorId(id: string): User;
-class ServicoEmail { }
-interface IRepositorioUsuario { }
 ```
 
-### Constants
+### Constants (Português ou Inglês)
 ```typescript
-// ✅ CORRECT
-const MAX_RETRIES = 3;
-const DEFAULT_TIMEOUT = 5000;
-const API_BASE_URL = 'https://api.example.com';
-
-// ❌ WRONG
+// ✅ OK - Português
 const MAX_TENTATIVAS = 3;
 const TIMEOUT_PADRAO = 5000;
 const URL_BASE_API = 'https://api.example.com';
+
+// ✅ OK - English
+const MAX_RETRIES = 3;
+const DEFAULT_TIMEOUT = 5000;
+const API_BASE_URL = 'https://api.example.com';
 ```
 
-### Classes and Interfaces
+### Classes and Interfaces (Português ou Inglês)
 ```typescript
-// ✅ CORRECT
-class UserService { }
-interface IEmailProvider { }
-type ValidationResult = { };
-
-// ❌ WRONG
+// ✅ OK - Português
 class ServicoUsuario { }
 interface IProvedorEmail { }
 type ResultadoValidacao = { };
+
+// ✅ OK - English
+class UserService { }
+interface IEmailProvider { }
+type ValidationResult = { };
 ```
 
 ## Comments
 
-### Code Comments: English
+### Code Comments: Português ou English
 ```typescript
-// ✅ CORRECT
+// ✅ OK - Português
+/**
+ * Valida se o email dado tem formato válido
+ * @param email - Endereço de email para validar
+ * @returns true se válido, false caso contrário
+ */
+function validarEmail(email: string): boolean {
+  // Verifica formato do email usando regex
+  return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+}
+
+// ✅ OK - English
 /**
  * Validates if the given email has a valid format
  * @param email - Email address to validate
@@ -107,64 +127,66 @@ function validateEmail(email: string): boolean {
   // Check email format using regex
   return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
 }
-
-// ❌ WRONG
-/**
- * Valida se o email dado tem formato válido
- * @param email - Endereço de email para validar
- * @returns true se válido, false caso contrário
- */
-function validateEmail(email: string): boolean {
-  // Verifica formato do email usando regex
-  return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
-}
 ```
 
-### Workflow Documentation: Portuguese OK
+### Workflow Documentation: Português ou English
 ```markdown
-# ValidateData
+# ValidarDados
 
 Workflow para validação de dados recebidos via webhook.
 
-## Description
-This workflow receives data via webhook and validates the email format.
-
-(Portuguese OK here for user-facing docs)
+## Descrição
+Este workflow recebe dados via webhook e valida o formato do email.
 ```
 
 ## Git Conventions
 
-### Commit Messages: English
+### Commit Messages: Português ou English
 ```bash
-# ✅ CORRECT
-git commit -m "feat: add email validation"
-git commit -m "fix: correct timeout handling"
-git commit -m "docs: update README"
-
-# ❌ WRONG
+# ✅ OK - Português
 git commit -m "feat: adiciona validação de email"
 git commit -m "fix: corrige tratamento de timeout"
 git commit -m "docs: atualiza README"
+
+# ✅ OK - English
+git commit -m "feat: add email validation"
+git commit -m "fix: correct timeout handling"
+git commit -m "docs: update README"
 ```
 
-### Branch Names: English
+### Branch Names: Português ou English
 ```bash
-# ✅ CORRECT
-feature/user-authentication
-fix/email-validation-bug
-refactor/database-layer
-
-# ❌ WRONG
+# ✅ OK - Português
 feature/autenticacao-usuario
 fix/bug-validacao-email
 refactor/camada-banco
+
+# ✅ OK - English
+feature/user-authentication
+fix/email-validation-bug
+refactor/database-layer
 ```
 
 ## TypeScript Conventions
 
-### Types
+### Types (Português ou English)
 ```typescript
-// ✅ CORRECT
+// ✅ OK - Português
+type Usuario = {
+  id: string;
+  nome: string;
+  email: string;
+  criadoEm: Date;
+};
+
+interface IRepositorioUsuario {
+  buscarPorId(id: string): Promise<Usuario>;
+  criar(usuario: Usuario): Promise<void>;
+  atualizar(usuario: Usuario): Promise<void>;
+  deletar(id: string): Promise<void>;
+}
+
+// ✅ OK - English
 type User = {
   id: string;
   name: string;
@@ -178,19 +200,25 @@ interface IUserRepository {
   update(user: User): Promise<void>;
   delete(id: string): Promise<void>;
 }
-
-// ❌ WRONG
-type Usuario = {
-  id: string;
-  nome: string;
-  email: string;
-  criadoEm: Date;
-};
 ```
 
-### Enums
+### Enums (Português ou English)
 ```typescript
-// ✅ CORRECT
+// ✅ OK - Português
+enum PapelUsuario {
+  Admin = 'admin',
+  Usuario = 'usuario',
+  Convidado = 'convidado',
+}
+
+enum StatusPedido {
+  Pendente = 'pendente',
+  Processando = 'processando',
+  Completo = 'completo',
+  Cancelado = 'cancelado',
+}
+
+// ✅ OK - English
 enum UserRole {
   Admin = 'admin',
   User = 'user',
@@ -203,53 +231,51 @@ enum OrderStatus {
   Completed = 'completed',
   Cancelled = 'cancelled',
 }
-
-// ❌ WRONG
-enum PapelUsuario {
-  Admin = 'admin',
-  Usuario = 'usuario',
-  Convidado = 'convidado',
-}
 ```
 
-## Exception: User-Facing Content
+## User-Facing Content
 
-User-facing content CAN be in Portuguese if the target audience is Brazilian:
+Conteúdo voltado para usuários pode estar em português:
 
 ```typescript
-// ✅ ACCEPTABLE - Error messages for users
+// ✅ Mensagens de erro para usuários
 throw new Error('Email inválido. Por favor, verifique o formato.');
 
-// ✅ ACCEPTABLE - Validation messages
-const validationMessages = {
-  required: 'Campo obrigatório',
-  invalidEmail: 'Email inválido',
-  minLength: 'Tamanho mínimo não atingido',
+// ✅ Mensagens de validação
+const mensagensValidacao = {
+  obrigatorio: 'Campo obrigatório',
+  emailInvalido: 'Email inválido',
+  tamanhoMinimo: 'Tamanho mínimo não atingido',
 };
-
-// But variable names still in English
-const userErrorMessages = { ... };
 ```
 
-## Why English?
+## Quando Usar Português vs Inglês?
 
-1. **International Standard**: Programming languages use English
-2. **Team Collaboration**: Easier for international teams
-3. **Code Reusability**: Can be shared globally
-4. **Learning**: Aligns with documentation and resources
-5. **Professionalism**: Shows adherence to industry standards
+### Use Português se:
+- Você trabalha sozinho ou com time brasileiro
+- O projeto é interno e não será compartilhado
+- Você se sente mais confortável em português
+- Os usuários finais são brasileiros
+
+### Use Inglês se:
+- Projeto open source ou público
+- Time internacional
+- Quer praticar inglês técnico
+- Planeja compartilhar código como portfólio
+
+### Seja Consistente
+Escolha um idioma e mantenha em todo o projeto. Não misture português e inglês no mesmo arquivo.
 
 ## Checklist
 
-Before committing code, verify:
+Antes de commitar código, verifique:
 
-- [ ] All variable names in English
-- [ ] All function names in English
-- [ ] All class/interface names in English
-- [ ] All file names in English
-- [ ] All code comments in English
-- [ ] Commit message in English
-- [ ] Branch name in English
+- [ ] Código está consistente no idioma escolhido
+- [ ] Nomes de variáveis/funções seguem padrão
+- [ ] Comentários estão claros
+- [ ] Documentação está atualizada
+- [ ] Commit message segue convenção (feat/fix/docs)
+- [ ] Testes estão passando
 
 ---
 
