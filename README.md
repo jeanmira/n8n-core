@@ -23,7 +23,7 @@
 
 ---
 
-## 🎯 Sobre o Projeto
+## Sobre o Projeto
 
 Este repositório contém uma implementação profissional de n8n com:
 
@@ -37,7 +37,7 @@ Este repositório contém uma implementação profissional de n8n com:
 
 ---
 
-## 📁 Estrutura do Repositório
+## Estrutura do Repositório
 
 ```
 n8n-private/
@@ -81,7 +81,7 @@ n8n-private/
 
 ---
 
-## 🔧 Pré-requisitos
+## Pré-requisitos
 
 - **Node.js** >= 18.x
 - **npm** >= 9.x ou **pnpm** >= 8.x
@@ -91,7 +91,7 @@ n8n-private/
 
 ---
 
-## 🚀 Instalação
+## Instalação
 
 ### 1. Clone o repositório
 
@@ -123,7 +123,7 @@ Abra o navegador em: `http://localhost:5678`
 
 ---
 
-## 💻 Uso
+## Uso
 
 ### Importar Workflows
 
@@ -153,7 +153,7 @@ npm run test:integration   # Apenas testes de integração
 
 ---
 
-## 📊 Workflows
+## Workflows
 
 ### Convenção de Nomenclatura
 
@@ -189,7 +189,7 @@ Veja [docs/WORKFLOWS.md](docs/WORKFLOWS.md) para mais detalhes.
 
 ---
 
-## 🔌 Custom Nodes
+## Custom Nodes
 
 ### Criar um Custom Node
 
@@ -223,7 +223,7 @@ Veja [docs/CUSTOM_NODES.md](docs/CUSTOM_NODES.md) para mais detalhes.
 
 ---
 
-## 🧪 Testes
+## Testes
 
 ### Rodar Testes
 
@@ -252,7 +252,7 @@ describe('ValidarDados Workflow', () => {
 
 ---
 
-## 🚢 Deploy
+## Deploy
 
 ### Desenvolvimento
 
@@ -276,7 +276,7 @@ Veja [docs/DEPLOYMENT.md](docs/DEPLOYMENT.md) para mais detalhes.
 
 ---
 
-## 🤝 Contribuindo
+## Contribuindo
 
 Leia [CONTRIBUTING.md](CONTRIBUTING.md) para detalhes sobre:
 
@@ -287,7 +287,7 @@ Leia [CONTRIBUTING.md](CONTRIBUTING.md) para detalhes sobre:
 
 ---
 
-## 📚 Documentação
+## Documentação
 
 - [Arquitetura](docs/ARCHITECTURE.md) - Princípios e padrões de design
 - [Workflows](docs/WORKFLOWS.md) - Guia de workflows
@@ -297,19 +297,19 @@ Leia [CONTRIBUTING.md](CONTRIBUTING.md) para detalhes sobre:
 
 ---
 
-## 📝 Licença
+## Licença
 
 Este é um repositório privado. Todos os direitos reservados.
 
 ---
 
-## 👥 Autores
+## Autores
 
 - **Seu Nome** - *Desenvolvedor Principal*
 
 ---
 
-## 📞 Suporte
+## Suporte
 
 Para questões e suporte:
 - Abra uma issue neste repositório

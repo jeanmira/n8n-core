@@ -16,7 +16,7 @@ Obrigado por contribuir com este projeto! Este documento fornece diretrizes para
 
 ---
 
-## 🤝 Código de Conduta
+## Código de Conduta
 
 Este projeto segue princípios de:
 - Respeito mútuo
@@ -26,7 +26,7 @@ Este projeto segue princípios de:
 
 ---
 
-## 🔄 Como Contribuir
+## Como Contribuir
 
 ### 1. Criar uma Branch
 
@@ -85,7 +85,7 @@ Depois, abra um Pull Request no GitHub com:
 
 ---
 
-## 💻 Padrões de Código
+## Padrões de Código
 
 ### TypeScript
 
@@ -159,7 +159,7 @@ export class my_custom_node {  // PascalCase obrigatório
 
 ---
 
-## 📝 Convenções de Nomenclatura
+## Convenções de Nomenclatura
 
 ### Workflows
 
@@ -218,7 +218,7 @@ async function GetData() { }      // Sem tipo de retorno
 
 ---
 
-## 🔖 Commits e Pull Requests
+## Commits e Pull Requests
 
 ### Convenções de Commits
 
@@ -287,7 +287,7 @@ Breve descrição das mudanças.
 
 ---
 
-## 🧪 Testes
+## Testes
 
 ### Testes Obrigatórios
 
@@ -345,7 +345,7 @@ npm run test:watch
 
 ---
 
-## 📚 Documentação
+## Documentação
 
 ### Documentar Workflows
 
@@ -434,7 +434,7 @@ export class SendGridEmailNode implements INodeType {
 
 ---
 
-## ✅ Checklist Antes de Commit
+## Checklist Antes de Commit
 
 - [ ] Código segue padrões de estilo
 - [ ] Testes adicionados/atualizados
@@ -447,7 +447,7 @@ export class SendGridEmailNode implements INodeType {
 
 ---
 
-## 🔍 Revisão de Código
+## Revisão de Código
 
 ### O que revisores verificam:
 
@@ -471,11 +471,11 @@ export class SendGridEmailNode implements INodeType {
 
 ---
 
-## 📞 Dúvidas?
+## Dúvidas?
 
 - Abra uma issue com a tag `question`
 - Entre em contato com os mantenedores
 
 ---
 
-**Obrigado por contribuir! 🎉**
+**Obrigado por contribuir!**

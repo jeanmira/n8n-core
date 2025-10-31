@@ -287,4 +287,4 @@ Abra uma issue ou entre em contato:
 
 ---
 
-**Pronto para começar!** 🚀
+**Pronto para começar!**
