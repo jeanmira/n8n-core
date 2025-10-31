@@ -1,6 +1,6 @@
 # n8n Private Repository
 
-> Repositório privado profissional para workflows, custom nodes e automações n8n seguindo arquitetura modular e clean.
+> Repositório profissional para workflows, custom nodes e automações n8n seguindo arquitetura modular e clean.
 
 [![Status](https://img.shields.io/badge/status-active-success.svg)]()
 [![License](https://img.shields.io/badge/license-private-red.svg)]()
