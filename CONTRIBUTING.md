@@ -92,7 +92,7 @@ Depois, abra um Pull Request no GitHub com:
 #### Estilo de Código
 
 ```typescript
-// ✅ CERTO
+// [OK] CERTO
 export class MyCustomNode implements INodeType {
   description: INodeTypeDescription = {
     displayName: 'My Custom Node',
@@ -106,7 +106,7 @@ export class MyCustomNode implements INodeType {
   }
 }
 
-// ❌ ERRADO
+// [X] ERRADO
 export class my_custom_node {  // PascalCase obrigatório
   async execute() {             // Sem tipo de retorno
     // código sem tratamento de erro
@@ -167,13 +167,13 @@ export class my_custom_node {  // PascalCase obrigatório
 {Domain}{Action}{Entity}.json
 
 Exemplos:
-✅ CrmSyncContacts.json
-✅ EmailNotificationOrder.json
-✅ ValidateDataWebhook.json
+[OK] CrmSyncContacts.json
+[OK] EmailNotificationOrder.json
+[OK] ValidateDataWebhook.json
 
-❌ workflow-1.json
-❌ meu_workflow.json
-❌ ProcessarTudo.json
+[X] workflow-1.json
+[X] meu_workflow.json
+[X] ProcessarTudo.json
 ```
 
 ### Custom Nodes
@@ -182,12 +182,12 @@ Exemplos:
 {Provider}{Action}Node.ts
 
 Exemplos:
-✅ SendGridEmailNode.ts
-✅ TwilioSmsNode.ts
-✅ StripePaymentNode.ts
+[OK] SendGridEmailNode.ts
+[OK] TwilioSmsNode.ts
+[OK] StripePaymentNode.ts
 
-❌ EmailNode.ts (genérico demais)
-❌ sendgrid.ts (sem sufixo Node)
+[X] EmailNode.ts (genérico demais)
+[X] sendgrid.ts (sem sufixo Node)
 ```
 
 ### Credentials
@@ -196,21 +196,21 @@ Exemplos:
 {Provider}Credentials.ts
 
 Exemplos:
-✅ SendGridCredentials.ts
-✅ PostgresCredentials.ts
+[OK] SendGridCredentials.ts
+[OK] PostgresCredentials.ts
 
-❌ ApiCredentials.ts (genérico demais)
+[X] ApiCredentials.ts (genérico demais)
 ```
 
 ### Variáveis e Funções
 
 ```typescript
-// ✅ CERTO
+// [OK] CERTO
 const userId = '123';
 function validateEmail(email: string): boolean { }
 async function fetchUserData(id: string): Promise<User> { }
 
-// ❌ ERRADO
+// [X] ERRADO
 const user_id = '123';           // snake_case
 function ValidateEmail() { }      // PascalCase em função
 async function GetData() { }      // Sem tipo de retorno
