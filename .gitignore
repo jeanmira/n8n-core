@@ -1,17 +1,40 @@
-# n8n Private Repository - Git Ignore
+# n8n Repository - Git Ignore
 
-# Environment variables
+###############################################################################
+# DADOS SENSÍVEIS (NUNCA COMMITAR)
+###############################################################################
+
+# Environment variables REAIS
 .env
 .env.local
-.env.*.local
 .env.production
 .env.staging
 
-# n8n data
+# Credenciais reais
+credentials.json
+secrets.json
+config/**/production.ts
+config/**/production.json
+
+# Workflows privados/específicos da empresa
+workflows/private/
+workflows/company/
+workflows/**/*-private.json
+
+# Dados de execução
 .n8n/
 *.db
 *.sqlite
 *.sqlite3
+
+# Backups
+backups/
+*.sql
+*.dump
+
+###############################################################################
+# ARQUIVOS DE BUILD E DESENVOLVIMENTO (não precisa no repo)
+###############################################################################
 
 # Node modules
 node_modules/
@@ -31,7 +54,6 @@ build/
 *.swp
 *.swo
 *~
-.DS_Store
 
 # Logs
 logs/
@@ -42,13 +64,6 @@ tmp/
 temp/
 *.tmp
 
-# Credentials (never commit real credentials)
-credentials.json
-secrets.json
-
-# Docker
-docker-compose.override.yml
-
 # Coverage reports
 coverage/
 .nyc_output/
@@ -57,6 +72,16 @@ coverage/
 test-results/
 *.test.db
 
+###############################################################################
+# DOCKER E INFRAESTRUTURA LOCAL
+###############################################################################
+
+# Docker overrides locais
+docker-compose.override.yml
+docker-compose.local.yml
+
+###############################################################################
 # OS
+###############################################################################
 Thumbs.db
 .DS_Store

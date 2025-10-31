@@ -1,0 +1,55 @@
+###############################################################################
+# .gitignore.public
+# Use este arquivo para repositório PÚBLICO (portfólio)
+#
+# Copie este conteúdo para .gitignore quando for publicar
+###############################################################################
+
+###############################################################################
+# DADOS SENSÍVEIS (NUNCA COMMITAR EM REPO PÚBLICO)
+###############################################################################
+
+# Environment variables
+.env*
+!.env.example
+!.env.test
+
+# Credenciais
+credentials.json
+secrets.json
+**/production.*
+**/staging.*
+
+# Workflows privados
+workflows/private/
+workflows/company/
+workflows/**/*-private.json
+workflows/**/*-client*.json
+
+# Dados reais
+.n8n/
+*.db
+*.sqlite
+*.sqlite3
+backups/
+*.sql
+
+###############################################################################
+# BUILD E DESENVOLVIMENTO
+###############################################################################
+
+node_modules/
+dist/
+build/
+*.log
+.vscode/
+.idea/
+coverage/
+tmp/
+temp/
+
+###############################################################################
+# OS
+###############################################################################
+.DS_Store
+Thumbs.db
