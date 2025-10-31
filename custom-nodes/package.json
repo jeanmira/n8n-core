@@ -20,7 +20,7 @@
     "automation",
     "workflow"
   ],
-  "author": "Your Name",
+  "author": "Jean Mira <jeandemira@gmail.com>",
   "license": "MIT",
   "n8n": {
     "nodes": [

@@ -305,7 +305,7 @@ Este é um repositório privado. Todos os direitos reservados.
 
 ## Autores
 
-- **Seu Nome** - *Desenvolvedor Principal*
+- **Jean Mira** - *Desenvolvedor Principal*
 
 ---
 
@@ -313,7 +313,7 @@ Este é um repositório privado. Todos os direitos reservados.
 
 Para questões e suporte:
 - Abra uma issue neste repositório
-- Entre em contato: seu-email@exemplo.com
+- Entre em contato: jeandemira@gmail.com
 
 ---
 

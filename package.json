@@ -31,7 +31,7 @@
     "workflow",
     "no-code"
   ],
-  "author": "Your Name",
+  "author": "Jean Mira <jeandemira@gmail.com>",
   "license": "MIT",
   "devDependencies": {
     "@types/jest": "^29.5.0",
