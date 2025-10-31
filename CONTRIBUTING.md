@@ -4,7 +4,7 @@ Obrigado por contribuir com este projeto! Este documento fornece diretrizes para
 
 ---
 
-## 📋 Índice
+## Indice
 
 - [Código de Conduta](#codigo-de-conduta)
 - [Como Contribuir](#como-contribuir)

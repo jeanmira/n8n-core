@@ -7,7 +7,7 @@
 
 ---
 
-## 📋 Índice
+## Indice
 
 - [Sobre o Projeto](#sobre-o-projeto)
 - [Estrutura do Repositório](#estrutura-do-repositorio)

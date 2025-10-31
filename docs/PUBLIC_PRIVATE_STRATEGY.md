@@ -57,28 +57,28 @@ Este documento explica como manter este repositório parte público (portfólio)
 
 ### Estrutura e Arquitetura
 ```
-✅ Estrutura de diretórios
-✅ Documentação (README, ARCHITECTURE, CONTRIBUTING)
-✅ Configuração de CI/CD
-✅ Scripts de automação
-✅ Docker e Kubernetes configs (genéricos)
+[OK] Estrutura de diretórios
+[OK] Documentação (README, ARCHITECTURE, CONTRIBUTING)
+[OK] Configuração de CI/CD
+[OK] Scripts de automação
+[OK] Docker e Kubernetes configs (genéricos)
 ```
 
 ### Código Genérico
 ```
-✅ Custom nodes de exemplo
-✅ Utilitários (validators, transformers, helpers)
-✅ Workflows de exemplo documentados
-✅ Testes unitários e de integração
-✅ Configurações TypeScript/Jest
+[OK] Custom nodes de exemplo
+[OK] Utilitários (validators, transformers, helpers)
+[OK] Workflows de exemplo documentados
+[OK] Testes unitários e de integração
+[OK] Configurações TypeScript/Jest
 ```
 
 ### Exemplos Educacionais
 ```
-✅ ValidateData.json - validação de email
-✅ SendEmailNotification.json - envio de email (mock)
-✅ ExampleNode - custom node template
-✅ Validators/Transformers - funções utilitárias
+[OK] ValidateData.json - validação de email
+[OK] SendEmailNotification.json - envio de email (mock)
+[OK] ExampleNode - custom node template
+[OK] Validators/Transformers - funções utilitárias
 ```
 
 ## O que NUNCA deve ser Público
