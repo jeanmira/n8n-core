@@ -10,8 +10,7 @@
 import {
   INodeType,
   INodeTypeDescription,
-  INodeExecuteFunctions,
-  INodePropertyOptions,
+  IExecuteFunctions,
   NodeOperationError,
   IDataObject,
 } from 'n8n-workflow';
@@ -93,7 +92,7 @@ export class ExampleNode implements INodeType {
     ],
   };
 
-  async execute(this: INodeExecuteFunctions): Promise<any> {
+  async execute(this: IExecuteFunctions): Promise<any> {
     const items = this.getInputData();
     const returnData: IDataObject[] = [];
     const operation = this.getNodeParameter('operation', 0) as string;
@@ -104,17 +103,17 @@ export class ExampleNode implements INodeType {
 
         switch (operation) {
           case 'transform':
-            const transformedItem = await this.transformData(item.json, i);
+            const transformedItem = await ExampleNode.transformData(this, item.json, i);
             returnData.push(transformedItem);
             break;
 
           case 'validate':
-            const validatedItem = await this.validateData(item.json, i);
+            const validatedItem = await ExampleNode.validateData(this, item.json, i);
             returnData.push(validatedItem);
             break;
 
           case 'filter':
-            const shouldInclude = await this.filterData(item.json, i);
+            const shouldInclude = await ExampleNode.filterData(this, item.json, i);
             if (shouldInclude) {
               returnData.push(item.json);
             }
@@ -128,9 +127,10 @@ export class ExampleNode implements INodeType {
         }
       } catch (error) {
         if (this.continueOnFail()) {
+          const errorMessage = error instanceof Error ? error.message : 'Unknown error';
           returnData.push({
             json: {
-              error: error.message,
+              error: errorMessage,
             },
             pairedItem: { item: i },
           } as any);
@@ -146,22 +146,23 @@ export class ExampleNode implements INodeType {
   /**
    * Transforma os dados
    */
-  private async transformData(
+  private static async transformData(
+    context: IExecuteFunctions,
     data: IDataObject,
     itemIndex: number
   ): Promise<IDataObject> {
-    const fieldName = this.getNodeParameter('fieldName', itemIndex) as string;
+    const fieldName = context.getNodeParameter('fieldName', itemIndex) as string;
 
     if (!fieldName) {
       throw new NodeOperationError(
-        this.getNode(),
+        context.getNode(),
         'Field name is required for transform operation'
       );
     }
 
     return {
       ...data,
-      [fieldName]: this.transformValue(data[fieldName]),
+      [fieldName]: ExampleNode.transformValue(data[fieldName]),
       transformed: true,
       transformedAt: new Date().toISOString(),
     };
@@ -170,20 +171,21 @@ export class ExampleNode implements INodeType {
   /**
    * Valida os dados
    */
-  private async validateData(
+  private static async validateData(
+    context: IExecuteFunctions,
     data: IDataObject,
     itemIndex: number
   ): Promise<IDataObject> {
-    const fieldName = this.getNodeParameter('fieldName', itemIndex) as string;
+    const fieldName = context.getNodeParameter('fieldName', itemIndex) as string;
 
     if (!fieldName) {
       throw new NodeOperationError(
-        this.getNode(),
+        context.getNode(),
         'Field name is required for validate operation'
       );
     }
 
-    const isValid = this.validateField(data[fieldName]);
+    const isValid = ExampleNode.validateField(data[fieldName]);
 
     return {
       ...data,
@@ -196,23 +198,24 @@ export class ExampleNode implements INodeType {
   /**
    * Filtra os dados
    */
-  private async filterData(
-    data: IDataObject,
+  private static async filterData(
+    context: IExecuteFunctions,
+    _data: IDataObject,
     itemIndex: number
   ): Promise<boolean> {
-    const condition = this.getNodeParameter('filterCondition', itemIndex) as string;
+    const condition = context.getNodeParameter('filterCondition', itemIndex) as string;
 
     if (!condition) {
       return true;
     }
 
-    return this.evaluateCondition(data, condition);
+    return ExampleNode.evaluateCondition();
   }
 
   /**
    * Transforma um valor
    */
-  private transformValue(value: any): any {
+  private static transformValue(value: any): any {
     if (typeof value === 'string') {
       return value.toUpperCase();
     }
@@ -225,7 +228,7 @@ export class ExampleNode implements INodeType {
   /**
    * Valida um campo
    */
-  private validateField(value: any): boolean {
+  private static validateField(value: any): boolean {
     if (value === null || value === undefined) {
       return false;
     }
@@ -238,7 +241,7 @@ export class ExampleNode implements INodeType {
   /**
    * Avalia uma condição
    */
-  private evaluateCondition(data: IDataObject, condition: string): boolean {
+  private static evaluateCondition(): boolean {
     try {
       return true;
     } catch (error) {
