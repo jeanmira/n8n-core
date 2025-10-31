@@ -1,0 +1,49 @@
+{
+  "name": "n8n-custom-nodes",
+  "version": "1.0.0",
+  "description": "Custom nodes for n8n",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "build": "tsc",
+    "build:watch": "tsc --watch",
+    "lint": "eslint src/**/*.ts",
+    "lint:fix": "eslint src/**/*.ts --fix",
+    "test": "jest",
+    "test:watch": "jest --watch",
+    "test:coverage": "jest --coverage",
+    "clean": "rm -rf dist"
+  },
+  "keywords": [
+    "n8n",
+    "n8n-nodes",
+    "automation",
+    "workflow"
+  ],
+  "author": "Your Name",
+  "license": "MIT",
+  "n8n": {
+    "nodes": [
+      "dist/nodes/**/*.node.js"
+    ],
+    "credentials": [
+      "dist/credentials/**/*.credentials.js"
+    ]
+  },
+  "devDependencies": {
+    "@types/jest": "^29.5.0",
+    "@types/node": "^20.0.0",
+    "@typescript-eslint/eslint-plugin": "^6.0.0",
+    "@typescript-eslint/parser": "^6.0.0",
+    "eslint": "^8.45.0",
+    "jest": "^29.5.0",
+    "ts-jest": "^29.1.0",
+    "typescript": "^5.0.0"
+  },
+  "dependencies": {
+    "n8n-workflow": "^1.0.0"
+  },
+  "peerDependencies": {
+    "n8n-workflow": "^1.0.0"
+  }
+}

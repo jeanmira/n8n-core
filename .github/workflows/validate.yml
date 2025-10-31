@@ -1,0 +1,78 @@
+##############################################################################
+# @Author: Jean Mira
+# @Email:  jeandemira@gmail.com
+# @Date:   2025-10-30
+##############################################################################
+
+name: Validate Workflows
+
+on:
+  push:
+    branches: [ main, develop ]
+    paths:
+      - 'workflows/**'
+  pull_request:
+    branches: [ main, develop ]
+    paths:
+      - 'workflows/**'
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: Setup jq
+      run: sudo apt-get update && sudo apt-get install -y jq
+
+    - name: Validate workflow JSON schema
+      run: |
+        for file in workflows/**/*.json; do
+          echo "Validating $file"
+          if ! jq empty "$file" 2>/dev/null; then
+            echo "Invalid JSON: $file"
+            exit 1
+          fi
+        done
+
+    - name: Check required workflow fields
+      run: |
+        for file in workflows/**/*.json; do
+          if [ ! -f "$file" ]; then continue; fi
+
+          if ! jq -e '.name' "$file" >/dev/null; then
+            echo "Missing 'name' in $file"
+            exit 1
+          fi
+
+          if ! jq -e '.nodes' "$file" >/dev/null; then
+            echo "Missing 'nodes' in $file"
+            exit 1
+          fi
+        done
+
+    - name: Run workflow validation script
+      run: |
+        chmod +x scripts/validate-workflows.sh
+        ./scripts/validate-workflows.sh workflows/
+
+    - name: Check for documentation
+      run: |
+        missing_docs=0
+        for file in workflows/**/*.json; do
+          if [ ! -f "$file" ]; then continue; fi
+
+          base_name=$(basename "$file" .json)
+          dir_name=$(dirname "$file")
+
+          if [ ! -f "${dir_name}/${base_name}.doc.md" ]; then
+            echo "Missing documentation: ${dir_name}/${base_name}.doc.md"
+            missing_docs=$((missing_docs + 1))
+          fi
+        done
+
+        if [ $missing_docs -gt 0 ]; then
+          echo "Warning: $missing_docs workflows are missing documentation"
+        fi

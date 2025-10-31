@@ -1,0 +1,133 @@
+# n8n Production Environment
+version: '3.8'
+
+services:
+  postgres:
+    image: postgres:15-alpine
+    container_name: n8n-postgres-prod
+    restart: always
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_DB: ${POSTGRES_DB}
+    volumes:
+      - postgres_data_prod:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER}"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
+
+  n8n:
+    build:
+      context: ..
+      dockerfile: infrastructure/Dockerfile
+    container_name: n8n-app-prod
+    restart: always
+    environment:
+      # Database
+      DB_TYPE: postgresdb
+      DB_POSTGRESDB_HOST: postgres
+      DB_POSTGRESDB_PORT: 5432
+      DB_POSTGRESDB_DATABASE: ${POSTGRES_DB}
+      DB_POSTGRESDB_USER: ${POSTGRES_USER}
+      DB_POSTGRESDB_PASSWORD: ${POSTGRES_PASSWORD}
+
+      # n8n Configuration
+      N8N_BASIC_AUTH_ACTIVE: true
+      N8N_BASIC_AUTH_USER: ${N8N_BASIC_AUTH_USER}
+      N8N_BASIC_AUTH_PASSWORD: ${N8N_BASIC_AUTH_PASSWORD}
+      N8N_HOST: ${N8N_HOST}
+      N8N_PORT: 5678
+      N8N_PROTOCOL: https
+      WEBHOOK_URL: ${WEBHOOK_URL}
+
+      # Security
+      N8N_ENCRYPTION_KEY: ${N8N_ENCRYPTION_KEY}
+
+      # Execution
+      EXECUTIONS_PROCESS: main
+      EXECUTIONS_TIMEOUT: 300
+      EXECUTIONS_TIMEOUT_MAX: 3600
+      EXECUTIONS_DATA_SAVE_ON_ERROR: all
+      EXECUTIONS_DATA_SAVE_ON_SUCCESS: all
+      EXECUTIONS_DATA_SAVE_MANUAL_EXECUTIONS: true
+
+      # Queue mode (production)
+      QUEUE_BULL_REDIS_HOST: redis
+      QUEUE_BULL_REDIS_PORT: 6379
+      QUEUE_BULL_REDIS_DB: 0
+      EXECUTIONS_MODE: queue
+
+      # Timezone
+      GENERIC_TIMEZONE: ${TIMEZONE:-America/Sao_Paulo}
+      TZ: ${TIMEZONE:-America/Sao_Paulo}
+
+      # Logging
+      N8N_LOG_LEVEL: info
+      N8N_LOG_OUTPUT: console,file
+
+      # Metrics
+      N8N_METRICS: true
+      N8N_METRICS_PREFIX: n8n_
+
+      # Custom nodes
+      N8N_CUSTOM_EXTENSIONS: /home/node/.n8n/custom
+
+    ports:
+      - "5678:5678"
+    volumes:
+      - n8n_data_prod:/home/node/.n8n
+      - ../workflows:/home/node/.n8n/workflows:ro
+      - ../custom-nodes:/home/node/.n8n/custom:ro
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD-SHELL", "wget --quiet --tries=1 --spider http://localhost:5678/healthz || exit 1"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 60s
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
+
+  redis:
+    image: redis:7-alpine
+    container_name: n8n-redis-prod
+    restart: always
+    command: redis-server --appendonly yes
+    volumes:
+      - redis_data_prod:/data
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
+
+volumes:
+  postgres_data_prod:
+    driver: local
+  n8n_data_prod:
+    driver: local
+  redis_data_prod:
+    driver: local
+
+networks:
+  default:
+    name: n8n-network-prod

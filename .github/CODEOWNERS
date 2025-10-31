@@ -1,0 +1,33 @@
+##############################################################################
+# @Author: Jean Mira
+# @Email:  jeandemira@gmail.com
+# @Date:   2025-10-30
+##############################################################################
+
+# CODEOWNERS file
+# Define who is responsible for code reviews in specific parts of the repository
+
+# Default owner for everything
+* @jeandemira
+
+# Workflows
+/workflows/ @jeandemira
+
+# Custom nodes
+/custom-nodes/ @jeandemira
+
+# Infrastructure
+/infrastructure/ @jeandemira
+/scripts/ @jeandemira
+
+# Documentation
+/docs/ @jeandemira
+README.md @jeandemira
+CONTRIBUTING.md @jeandemira
+
+# Configuration
+/config/ @jeandemira
+.env.example @jeandemira
+
+# CI/CD
+/.github/ @jeandemira

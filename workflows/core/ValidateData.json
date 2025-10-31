@@ -1,0 +1,91 @@
+{
+  "name": "ValidateData",
+  "nodes": [
+    {
+      "id": "webhook-1",
+      "name": "Webhook",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 1,
+      "position": [250, 300],
+      "webhookId": "validate-data",
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "validate",
+        "responseMode": "responseNode",
+        "options": {}
+      }
+    },
+    {
+      "id": "function-1",
+      "name": "Validate Email",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 1,
+      "position": [450, 300],
+      "parameters": {
+        "mode": "runOnceForEachItem",
+        "jsCode": "const email = $input.item.json.email;\nconst emailRegex = /^[^\\s@]+@[^\\s@]+\\.[^\\s@]+$/;\nconst isValid = emailRegex.test(email);\n\nreturn {\n  json: {\n    ...($input.item.json),\n    emailValid: isValid,\n    validatedAt: new Date().toISOString()\n  }\n};"
+      }
+    },
+    {
+      "id": "if-1",
+      "name": "Check Validity",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 1,
+      "position": [650, 300],
+      "parameters": {
+        "conditions": {
+          "boolean": [
+            {
+              "value1": "={{$json.emailValid}}",
+              "value2": true
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "respond-1",
+      "name": "Respond Success",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1,
+      "position": [850, 200],
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "={{{\n  \"status\": \"success\",\n  \"message\": \"Email is valid\",\n  \"data\": $json\n}}}"
+      }
+    },
+    {
+      "id": "respond-2",
+      "name": "Respond Error",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1,
+      "position": [850, 400],
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "={{{\n  \"status\": \"error\",\n  \"message\": \"Email is invalid\",\n  \"data\": $json\n}}}"
+      }
+    }
+  ],
+  "connections": {
+    "Webhook": {
+      "main": [[{ "node": "Validate Email", "type": "main", "index": 0 }]]
+    },
+    "Validate Email": {
+      "main": [[{ "node": "Check Validity", "type": "main", "index": 0 }]]
+    },
+    "Check Validity": {
+      "main": [
+        [{ "node": "Respond Success", "type": "main", "index": 0 }],
+        [{ "node": "Respond Error", "type": "main", "index": 0 }]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "1.0.0",
+  "meta": {
+    "instanceId": "n8n-private"
+  }
+}

@@ -1,0 +1,98 @@
+{
+  "name": "SendEmailNotification",
+  "nodes": [
+    {
+      "id": "start-1",
+      "name": "Execute Workflow Trigger",
+      "type": "n8n-nodes-base.executeWorkflowTrigger",
+      "typeVersion": 1,
+      "position": [250, 300]
+    },
+    {
+      "id": "set-1",
+      "name": "Prepare Email Data",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 1,
+      "position": [450, 300],
+      "parameters": {
+        "values": {
+          "string": [
+            {
+              "name": "subject",
+              "value": "={{$json.subject || 'Notification'}}"
+            },
+            {
+              "name": "to",
+              "value": "={{$json.to}}"
+            },
+            {
+              "name": "body",
+              "value": "={{$json.body}}"
+            },
+            {
+              "name": "sentAt",
+              "value": "={{new Date().toISOString()}}"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "function-1",
+      "name": "Format Email",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 1,
+      "position": [650, 300],
+      "parameters": {
+        "mode": "runOnceForEachItem",
+        "jsCode": "const item = $input.item.json;\n\nconst htmlBody = `\n<!DOCTYPE html>\n<html>\n<head>\n  <style>\n    body { font-family: Arial, sans-serif; }\n    .container { max-width: 600px; margin: 0 auto; padding: 20px; }\n    .header { background: #007bff; color: white; padding: 10px; }\n    .content { padding: 20px; }\n  </style>\n</head>\n<body>\n  <div class=\"container\">\n    <div class=\"header\">\n      <h2>${item.subject}</h2>\n    </div>\n    <div class=\"content\">\n      ${item.body}\n    </div>\n  </div>\n</body>\n</html>\n`;\n\nreturn {\n  json: {\n    ...item,\n    htmlBody: htmlBody\n  }\n};"
+      }
+    },
+    {
+      "id": "http-1",
+      "name": "Send Email (Mock)",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 1,
+      "position": [850, 300],
+      "parameters": {
+        "method": "POST",
+        "url": "https://httpbin.org/post",
+        "options": {
+          "timeout": 10000
+        },
+        "bodyParameters": {
+          "parameters": [
+            {
+              "name": "to",
+              "value": "={{$json.to}}"
+            },
+            {
+              "name": "subject",
+              "value": "={{$json.subject}}"
+            },
+            {
+              "name": "html",
+              "value": "={{$json.htmlBody}}"
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "connections": {
+    "Execute Workflow Trigger": {
+      "main": [[{ "node": "Prepare Email Data", "type": "main", "index": 0 }]]
+    },
+    "Prepare Email Data": {
+      "main": [[{ "node": "Format Email", "type": "main", "index": 0 }]]
+    },
+    "Format Email": {
+      "main": [[{ "node": "Send Email (Mock)", "type": "main", "index": 0 }]]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "1.0.0"
+}

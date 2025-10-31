@@ -1,0 +1,62 @@
+# n8n Private Repository - Git Ignore
+
+# Environment variables
+.env
+.env.local
+.env.*.local
+.env.production
+.env.staging
+
+# n8n data
+.n8n/
+*.db
+*.sqlite
+*.sqlite3
+
+# Node modules
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# Build outputs
+dist/
+build/
+*.tsbuildinfo
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+
+# Logs
+logs/
+*.log
+
+# Temporary files
+tmp/
+temp/
+*.tmp
+
+# Credentials (never commit real credentials)
+credentials.json
+secrets.json
+
+# Docker
+docker-compose.override.yml
+
+# Coverage reports
+coverage/
+.nyc_output/
+
+# Test artifacts
+test-results/
+*.test.db
+
+# OS
+Thumbs.db
+.DS_Store
