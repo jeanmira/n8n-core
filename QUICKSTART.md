@@ -4,29 +4,48 @@ Guia rápido para começar a usar este repositório n8n.
 
 ## Instalação Rápida
 
-### 1. Clone o repositório
+### Método 1: Script Automático (Recomendado)
+
 ```bash
+# 1. Clone o repositório
 git clone <seu-repositorio-url>
 cd n8n-private
+
+# 2. Execute o setup
+./setup.sh
+
+# 3. Inicie o n8n
+./start.sh
 ```
 
-### 2. Configure variáveis de ambiente
+### Método 2: Manual
+
 ```bash
+# 1. Clone o repositório
+git clone <seu-repositorio-url>
+cd n8n-private
+
+# 2. Configure variáveis de ambiente
 cp .env.example .env
 # Edite .env com seus valores
-```
 
-### 3. Inicie com Docker
-```bash
+# 3. Gere encryption key
+openssl rand -base64 32
+# Cole no .env
+
+# 4. Instale dependências
+npm install
+
+# 5. Inicie com Docker
 docker-compose up -d
 ```
 
 ### 4. Acesse o n8n
 Abra no navegador: http://localhost:5678
 
-**Credenciais padrão (desenvolvimento):**
-- Usuário: `admin`
-- Senha: `admin`
+**Credenciais padrão (veja no .env):**
+- Usuário: valor de `N8N_BASIC_AUTH_USER`
+- Senha: valor de `N8N_BASIC_AUTH_PASSWORD`
 
 **IMPORTANTE:** Altere as credenciais em produção!
 
